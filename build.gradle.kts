@@ -75,6 +75,11 @@ tasks.withType<Test> {
     testClassesDirs = sourceSets["test"].output.classesDirs
     classpath = sourceSets["test"].runtimeClasspath
     outputs.upToDateWhen { false }
+    jvmArgs(
+        "-javaagent:${configurations.runtimeClasspath.get()
+            .find { it.name.contains("aspectjweaver") }}"
+    )
+    systemProperty("allure.results.directory", "${layout.buildDirectory.get()}/allure-results")
 }
 
 tasks.register<Test>("allTests") {
@@ -111,4 +116,5 @@ tasks.register<Test>("e2eTests") {
     useJUnitPlatform {
         includeTags("E2E")
     }
+
 }
