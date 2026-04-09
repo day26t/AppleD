@@ -97,7 +97,7 @@ tasks.register<Test>("apiTests") {
 
 tasks.register<Test>("smokeTests") {
     useJUnitPlatform {
-        includeTags("SMOKE")
+        includeTags("smoke")
     }
 }
 
