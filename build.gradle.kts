@@ -110,3 +110,13 @@ tasks.register<Test>("e2eTest") {
     group = "verification"
 
 }
+tasks.withType<Test> {
+    useJUnitPlatform()
+    systemProperty("allure.results.directory", "build/allure-results")
+    outputs.upToDateWhen { false }
+
+    testLogging {
+        events("passed", "failed", "skipped")
+        showStandardStreams = true
+    }
+}
