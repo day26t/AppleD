@@ -208,7 +208,6 @@ public class PracticeFormPage extends BasePage {
             throw new IllegalArgumentException("Unknown state: " + state);
         }
 
-        // Скроллим и кликаем на контейнер state
         WebElement stateContainer = wait.until(ExpectedConditions.elementToBeClickable(By.id("state")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", stateContainer);
         stateContainer.click();
