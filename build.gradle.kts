@@ -58,7 +58,8 @@ dependencies {
     implementation("io.qameta.allure:allure-java-commons:2.33.0")
 
 // Source: https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
-    implementation("org.seleniumhq.selenium:selenium-java:4.41.0")
+   // implementation("org.seleniumhq.selenium:selenium-java:4.41.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.32.0")
 
     // Source: https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
     runtimeOnly("org.aspectj:aspectjweaver:1.9.25.1")
