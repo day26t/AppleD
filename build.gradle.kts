@@ -72,7 +72,7 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    systemProperty("allure.results.directory", "build/allure-results")
+    systemProperty("allure.results.directory", "{buildDir}/allure-results")
     outputs.upToDateWhen { false }
 
     testLogging {
