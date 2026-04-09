@@ -75,11 +75,18 @@ tasks.withType<Test> {
     testClassesDirs = sourceSets["test"].output.classesDirs
     classpath = sourceSets["test"].runtimeClasspath
     outputs.upToDateWhen { false }
+
     jvmArgs(
         "-javaagent:${configurations.runtimeClasspath.get()
             .find { it.name.contains("aspectjweaver") }}"
     )
-    systemProperty("allure.results.directory", "${layout.buildDirectory.get()}/allure-results")
+
+    systemProperty("allure.results.directory", "build/allure-results")
+
+    testLogging {
+        events("passed", "failed", "skipped", "started")
+        showStandardStreams = true
+    }
 }
 
 tasks.register<Test>("allTests") {
