@@ -194,40 +194,45 @@ public class PracticeFormPage extends BasePage {
 
     @Step("Select state and city")
     public PracticeFormPage selectStateAndCity(String state) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(15));
 
         String stateToLowerCase = state.toLowerCase().trim();
 
         Map<String, List<String>> statesAndCity = new HashMap<>();
-        statesAndCity.put("ncr", List.of("delhi", "gurgaon", "noida"));
-        statesAndCity.put("uttar pradesh", List.of("agra", "lucknow", "merrut"));
-        statesAndCity.put("haryana", List.of("karnal", "panipat"));
-        statesAndCity.put("rajasthan", List.of("jaipur", "jaiselmer"));
+        statesAndCity.put("ncr", List.of("Delhi", "Gurgaon", "Noida"));
+        statesAndCity.put("uttar pradesh", List.of("Agra", "Lucknow", "Merrut"));
+        statesAndCity.put("haryana", List.of("Karnal", "Panipat"));
+        statesAndCity.put("rajasthan", List.of("Jaipur", "Jaiselmer"));
 
         if (!statesAndCity.containsKey(stateToLowerCase)) {
             throw new IllegalArgumentException("Unknown state: " + state);
         }
 
-        // Скроллим к полю и вводим текст
-        elementActions.scrollToElement(stateInput);
+        // Скроллим и кликаем на контейнер state
+        WebElement stateContainer = wait.until(ExpectedConditions.elementToBeClickable(By.id("state")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", stateContainer);
+        stateContainer.click();
+
+        // Вводим название штата
         elementActions.inputText(stateInput, state);
 
-        // Ждём появления дропдауна и кликаем на нужный вариант
+        // Ждём опцию и кликаем — реальный XPath для react-select на demoqa
         WebElement stateOption = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class,'menu')]//div[contains(text(),'" + state + "')]")));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", stateOption);
+                By.xpath("//div[@id='react-select-3-option-0']")));
+        stateOption.click();
 
         // Выбираем рандомный город
         List<String> cities = statesAndCity.get(stateToLowerCase);
         String city = cities.get(new Random().nextInt(cities.size()));
 
-        elementActions.scrollToElement(cityInput);
+        WebElement cityContainer = wait.until(ExpectedConditions.elementToBeClickable(By.id("city")));
+        cityContainer.click();
+
         elementActions.inputText(cityInput, city);
 
-        // Ждём появления дропдауна города и кликаем
         WebElement cityOption = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[contains(@class,'menu')]//div[contains(text(),'" + city + "')]")));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cityOption);
+                By.xpath("//div[@id='react-select-4-option-0']")));
+        cityOption.click();
 
         return this;
     }
