@@ -218,7 +218,7 @@ public class PracticeFormPage extends BasePage {
 
         // Ждём опцию и кликаем — реальный XPath для react-select на demoqa
         WebElement stateOption = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[@id='react-select-3-option-0']")));
+                By.xpath("//div[contains(@class,'option') and text()='" + state + "']")));
         stateOption.click();
 
         // Выбираем рандомный город
