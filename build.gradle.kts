@@ -70,6 +70,17 @@ dependencies {
 
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+    systemProperty("allure.results.directory", "build/allure-results")
+    outputs.upToDateWhen { false }
+
+    testLogging {
+        events("passed", "failed", "skipped")
+        showStandardStreams = true
+    }
+}
+
 tasks.test {
     useJUnitPlatform()
 }
@@ -109,14 +120,4 @@ tasks.register<Test>("e2eTest") {
     description = "Run E2E tests"
     group = "verification"
 
-}
-tasks.withType<Test> {
-    useJUnitPlatform()
-    systemProperty("allure.results.directory", "build/allure-results")
-    outputs.upToDateWhen { false }
-
-    testLogging {
-        events("passed", "failed", "skipped")
-        showStandardStreams = true
-    }
 }

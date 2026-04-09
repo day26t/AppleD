@@ -11,7 +11,7 @@ public class FileReaderUtil {
     static {
         properties = new Properties();
         try {
-            String path = "src/test/resources/App.properties";
+            String path = "src/main/resources/App.properties";
             FileInputStream fileInputStream = new FileInputStream(path);
             properties.load(fileInputStream);
             fileInputStream.close();

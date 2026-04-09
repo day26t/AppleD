@@ -28,7 +28,7 @@ public class DriverManager {
                     throw new IllegalArgumentException("Wrong driver name");
             }
         }
-        System.out.println("BROWSER: = " + System.getenv("BROWSER IS: "));
+        System.out.println("BROWSER: = " + FileReaderUtil.getValue("browser"));
         return driver;
     }
 
