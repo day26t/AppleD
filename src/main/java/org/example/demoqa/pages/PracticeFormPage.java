@@ -208,14 +208,26 @@ public class PracticeFormPage extends BasePage {
             throw new IllegalArgumentException("Unknown state: " + state);
         }
 
+        // Скроллим к полю и вводим текст
+        elementActions.scrollToElement(stateInput);
         elementActions.inputText(stateInput, state);
-        stateInput.sendKeys(Keys.TAB);
 
+        // Ждём появления дропдауна и кликаем на нужный вариант
+        WebElement stateOption = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//div[contains(@class,'menu')]//div[contains(text(),'" + state + "')]")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", stateOption);
+
+        // Выбираем рандомный город
         List<String> cities = statesAndCity.get(stateToLowerCase);
         String city = cities.get(new Random().nextInt(cities.size()));
 
+        elementActions.scrollToElement(cityInput);
         elementActions.inputText(cityInput, city);
-        cityInput.sendKeys(Keys.TAB);
+
+        // Ждём появления дропдауна города и кликаем
+        WebElement cityOption = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//div[contains(@class,'menu')]//div[contains(text(),'" + city + "')]")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cityOption);
 
         return this;
     }
