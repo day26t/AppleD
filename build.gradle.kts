@@ -72,52 +72,43 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    systemProperty("allure.results.directory", "{buildDir}/allure-results")
+    testClassesDirs = sourceSets["test"].output.classesDirs
+    classpath = sourceSets["test"].runtimeClasspath
     outputs.upToDateWhen { false }
-
-    testLogging {
-        events("passed", "failed", "skipped")
-        showStandardStreams = true
-    }
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
-// UI + API
-tasks.register<Test>("uiAndApiTest") {
+tasks.register<Test>("allTests") {
     useJUnitPlatform {
-        includeTags("ui", "api") // исправил здесь
+        includeTags("UI | API | SMOKE | REGRESSION | E2E")
     }
-    description = "Run UI and API tests"
-    group = "verification"
 }
 
-// Smoke
-tasks.register<Test>("smokeTest") {
+tasks.register<Test>("uiTests") {
     useJUnitPlatform {
-        includeTags("smoke")
+        includeTags("UI")
     }
-    description = "Run smoke tests"
-    group = "verification"
 }
 
-// UI
-tasks.register<Test>("uiTest") {
+tasks.register<Test>("apiTests") {
     useJUnitPlatform {
-        includeTags("ui")
+        includeTags("API")
     }
-    description = "Run UI tests"
-    group = "verification"
 }
 
-// E2E
-tasks.register<Test>("e2eTest") {
+tasks.register<Test>("smokeTests") {
     useJUnitPlatform {
-        includeTags("e2e")
+        includeTags("SMOKE")
     }
-    description = "Run E2E tests"
-    group = "verification"
+}
 
+tasks.register<Test>("regressionTests") {
+    useJUnitPlatform {
+        includeTags("REGRESSION")
+    }
+}
+
+tasks.register<Test>("e2eTests") {
+    useJUnitPlatform {
+        includeTags("E2E")
+    }
 }
