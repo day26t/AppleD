@@ -19,11 +19,6 @@ pipeline {
         )
     }
 
-    tools {
-        jdk 'JDK-17'
-        gradle 'Gradle-8'
-    }
-
     environment {
         ALLURE_RESULTS_DIR = 'build/allure-results'
     }
