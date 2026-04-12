@@ -28,7 +28,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git(
-                    url: 'https://github.com/your-org/your-repo.git',
+                    url: 'https://github.com/day26t/AppleD.git',
                     branch: "${params.BRANCH}"
                 )
             }
